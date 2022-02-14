@@ -29,6 +29,15 @@ public class Cardapio {
     public Cardapio() {
     }
 
+    public Cardapio(String nome, String descricao, Boolean disponivel, BigDecimal valor, Categoria categoria, LocalDateTime dataRegistro) {
+        this.nome = nome;
+        this.descricao = descricao;
+        this.disponivel = disponivel;
+        this.valor = valor;
+        this.categoria = categoria;
+        this.dataRegistro = dataRegistro;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -77,14 +86,23 @@ public class Cardapio {
         this.dataRegistro = dataRegistro;
     }
 
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
+
     @Override
     public String toString() {
-        return "Prato{" +
+        return "Cardapio{" +
                 "id=" + id +
                 ", nome='" + nome + '\'' +
                 ", descricao='" + descricao + '\'' +
                 ", disponivel=" + disponivel +
                 ", valor=" + valor +
+                ", categoria=" + categoria +
                 ", dataRegistro=" + dataRegistro +
                 '}';
     }
