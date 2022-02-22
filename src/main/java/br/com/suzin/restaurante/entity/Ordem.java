@@ -23,7 +23,7 @@ public class Ordem {
     @ManyToOne
     private Cliente cliente;
 
-    @OneToMany(mappedBy = "ordem")
+    @OneToMany(mappedBy = "ordem", cascade = CascadeType.ALL)
     private List<OrdensCardapio> ordensCardapioList = new ArrayList<>();
 
     public Ordem() {
@@ -70,6 +70,14 @@ public class Ordem {
         this.cliente = cliente;
     }
 
+    public List<OrdensCardapio> getOrdensCardapioList() {
+        return ordensCardapioList;
+    }
+
+    public void setOrdensCardapioList(List<OrdensCardapio> ordensCardapioList) {
+        this.ordensCardapioList = ordensCardapioList;
+    }
+
     @Override
     public String toString() {
         return "Ordem{" +
@@ -77,6 +85,7 @@ public class Ordem {
                 ", valorTotal=" + valorTotal +
                 ", dataDeCriacao=" + dataDeCriacao +
                 ", cliente=" + cliente +
+                ", ordensCardapioList=" + ordensCardapioList +
                 '}';
     }
 }
