@@ -28,6 +28,7 @@ public class OrdemService {
         suzin.addEndereco(endereco);
         Ordem ordem = new Ordem(suzin);
         ordem.addOrdensCardapio(new OrdensCardapio(cardapioDao.consultarPorId(1), 2));
+        ordem.addOrdensCardapio(new OrdensCardapio(cardapioDao.consultarPorId(2), 3));
         clienteDao.cadastrar(suzin);
         ordemDao.cadastrar(ordem);
 
