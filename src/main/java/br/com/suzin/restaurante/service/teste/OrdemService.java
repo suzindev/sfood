@@ -31,8 +31,8 @@ public class OrdemService {
         ordem.addOrdensCardapio(new OrdensCardapio(cardapioDao.consultarPorId(2), 3));
         clienteDao.cadastrar(suzin);
         ordemDao.cadastrar(ordem);
-
-        System.out.println(ordemDao.consultarItensMaisVendidos());
+        ordemDao.consultarPorId(2);
+        System.out.println(ordem.getOrdensCardapioList().isEmpty());
 
         entityManager.getTransaction().commit();
         entityManager.close();
