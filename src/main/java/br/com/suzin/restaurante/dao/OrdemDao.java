@@ -1,7 +1,7 @@
 package br.com.suzin.restaurante.dao;
 
-import br.com.suzin.restaurante.entity.Cliente;
 import br.com.suzin.restaurante.entity.Ordem;
+import br.com.suzin.restaurante.vo.ItensPrincipaisVo;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -32,6 +32,16 @@ public class OrdemDao {
     public List<Ordem> consultarTodos() {
         String jpql = "SELECT o FROM Ordem o";
         return this.entityManager.createQuery(jpql, Ordem.class).getResultList();
+    }
+
+    public List<ItensPrincipaisVo> consultarItensMaisVendidos() {
+        String jpql = "SELECT new br.com.suzin.restaurante.vo.ItensPrincipaisVo(" +
+                "c.nome, SUM(oc.quantidade)) FROM Ordem o " +
+                "JOIN OrdensCardapio oc on o.id = oc.cardapio.id " +
+                "JOIN oc.cardapio c " +
+                "GROUP BY c.nome " +
+                "ORDER BY SUM(oc.quantidade) desc";
+        return this.entityManager.createQuery(jpql, ItensPrincipaisVo.class).getResultList();
     }
 
     public void atualizar(final Ordem ordem) {

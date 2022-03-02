@@ -32,7 +32,7 @@ public class OrdemService {
         clienteDao.cadastrar(suzin);
         ordemDao.cadastrar(ordem);
 
-        System.out.println(ordem);
+        System.out.println(ordemDao.consultarItensMaisVendidos());
 
         entityManager.getTransaction().commit();
         entityManager.close();
