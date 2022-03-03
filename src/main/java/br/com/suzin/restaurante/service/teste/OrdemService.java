@@ -2,11 +2,9 @@ package br.com.suzin.restaurante.service.teste;
 
 import br.com.suzin.restaurante.dao.CardapioDao;
 import br.com.suzin.restaurante.dao.ClienteDao;
+import br.com.suzin.restaurante.dao.EnderecoDao;
 import br.com.suzin.restaurante.dao.OrdemDao;
-import br.com.suzin.restaurante.entity.Cliente;
-import br.com.suzin.restaurante.entity.Endereco;
-import br.com.suzin.restaurante.entity.Ordem;
-import br.com.suzin.restaurante.entity.OrdensCardapio;
+import br.com.suzin.restaurante.entity.*;
 import br.com.suzin.restaurante.util.CargaDeDadosUtil;
 import br.com.suzin.restaurante.util.JPAUtil;
 
@@ -24,17 +22,22 @@ public class OrdemService {
         OrdemDao ordemDao = new OrdemDao(entityManager);
 
         Endereco endereco = new Endereco("000000000", "rua", "apt 0", "São Paulo", "PR");
-        Cliente suzin = new Cliente("11111111111", "Suzin");
+        Cliente suzin = new Cliente("11111111111", "email@email.com", "Suzin");
         suzin.addEndereco(endereco);
         Ordem ordem = new Ordem(suzin);
         ordem.addOrdensCardapio(new OrdensCardapio(cardapioDao.consultarPorId(1), 2));
         ordem.addOrdensCardapio(new OrdensCardapio(cardapioDao.consultarPorId(2), 3));
         clienteDao.cadastrar(suzin);
         ordemDao.cadastrar(ordem);
-        ordemDao.consultarPorId(2);
-        System.out.println(ordem.getOrdensCardapioList().isEmpty());
+
+        EnderecoDao enderecoDao = new EnderecoDao(entityManager);
+
+        System.out.println(enderecoDao.consultarClientes("PR", "São Paulo", null));
+        System.out.println(enderecoDao.consultarClientesUsandoCriteria("PR", "São Paulo", null));
+        System.out.println(clienteDao.consultarPorId(new ClienteId("email@email.com", "11111111111")));
 
         entityManager.getTransaction().commit();
         entityManager.close();
+
     }
 }

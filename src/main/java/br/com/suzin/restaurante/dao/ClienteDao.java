@@ -2,6 +2,7 @@ package br.com.suzin.restaurante.dao;
 
 import br.com.suzin.restaurante.entity.Categoria;
 import br.com.suzin.restaurante.entity.Cliente;
+import br.com.suzin.restaurante.entity.ClienteId;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -25,13 +26,19 @@ public class ClienteDao {
         this.entityManager.persist(cliente);
     }
 
-    public Cliente consultarPorId(final Integer id) {
+    public Cliente consultarPorId(final ClienteId id) {
         return this.entityManager.find(Cliente.class, id);
     }
 
     public List<Cliente> consultarTodos() {
         String jpql = "SELECT c FROM Cliente c";
         return this.entityManager.createQuery(jpql, Cliente.class).getResultList();
+    }
+
+    public List<Cliente> consultarPorNome(final String nome) {
+        String jpql = "SELECT c FROM Cliente c WHERE LOWER(c.nome) LIKE LOWER(:nome)";
+        return this.entityManager.createQuery(jpql, Cliente.class).setParameter("nome", "%" +
+                nome + "%").getResultList();
     }
 
     public void atualizar(final Cliente cliente) {
